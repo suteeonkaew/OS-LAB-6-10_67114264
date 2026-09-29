@@ -1,0 +1,27 @@
+======================================================
+COE67-222 Operating Systems - Lab 09 Report
+
+Name: Sutee Onkaew
+Student ID: 67114264
+
+======================================================
+
+1. Inodes and Metadata:
+
+If I rename the file using the Linux mv command, the Inode Number will normally stay the same as long as the file remains in the same filesystem. This is because the file name and the actual file data are handled separately by the Operating System. The file name is only a reference to the inode, while the inode stores the metadata and information about the actual file. Therefore, changing only the file name does not create a new inode.
+
+2. POSIX Permissions:
+
+The Owner needs Read, Write, and Execute permissions, which gives 4 + 2 + 1 = 7. The Group needs Read and Execute permissions, which gives 4 + 1 = 5. Others need no permissions, which gives 0.
+
+Therefore, the 3-digit octal permission is:
+
+750
+
+In Python, it can be written as:
+
+os.chmod(filename, 0o750)
+
+3. The AI Context:
+
+It is safer to use Operating System file permissions because the OS kernel controls access to the file directly. In this experiment, the file was changed to read-only and the Operating System blocked the write operation with a PermissionError. This protection works even if the Python program has a bug or accidentally opens the file in write mode. A try-except block only handles errors inside the application, but OS-level permissions prevent the write operation itself. This makes OS permissions more reliable for protecting important production model weights.
