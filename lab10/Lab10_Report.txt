@@ -1,0 +1,31 @@
+======================================================
+COE67-222 Operating Systems - Lab 10 Report (Final)
+
+Name: Sutee Onkaew
+Student ID: 67114264
+
+======================================================
+
+1. The Role of the Operating System:
+
+* File System & Permissions (Lab 9):
+
+The file system security was simulated by checking whether the dataset file existed before starting a job using os.path.exists(dataset_path). Workload_D_Hacker failed because it requested the file secret_keys.txt, but this file did not exist in the system. The OS simulator rejected the job before allocating RAM or other resources.
+
+* Memory Management (Labs 5/6):
+
+The system used a while loop and ram_lock to check whether enough RAM was available before allowing a workload to run. If the requested RAM was larger than the available RAM, the job had to wait and check again later. This helps prevent the system from allocating more memory than it has and reduces the risk of swapping and Thrashing.
+
+* Concurrency & Deadlocks (Labs 3/4):
+
+The program sorted the requested GPU numbers using sorted(req_gpus) before acquiring the GPU locks. For example, Workload_A requested GPUs [2, 1, 0], but the system acquired them in the order [0, 1, 2]. Using the same resource order helps prevent Circular Wait, which is one of the conditions that can cause a deadlock.
+
+2. Hardware Utilization:
+
+The Operating System was able to run Workload A, Workload B, and Workload C at the same time because they used different system resources. Workload_A_LLaMA used 40 GB of RAM and GPUs 0, 1, and 2. Workload_B_Preproc used 16 GB of RAM but did not require any GPU, so it could run on the CPU while Workload A was still running. Workload_C_Infer used only 2 GB of RAM and GPU 3, which was still available.
+
+When all three workloads were active, they used 58 GB out of 64 GB RAM, leaving 6 GB available. All four GPUs were also being used efficiently because Workload A used GPUs 0-2 while Workload C used GPU 3. They did not block each other because their resource requirements did not conflict.
+
+3. Course Reflection (AI Engineering Context):
+
+Understanding Operating Systems gives an MLOps Engineer an advantage because AI workloads depend on more than just Python or PyTorch code. Knowledge of process queues helps manage multiple jobs, while understanding RAM and Virtual Memory helps prevent Out-of-Memory problems and Thrashing. Deadlock avoidance is important when several jobs need shared resources such as GPUs, and file system permissions help protect important datasets and model weights. These OS concepts help an MLOps Engineer build AI systems that are more stable, secure, and efficient when running many workloads on shared hardware.
