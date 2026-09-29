@@ -1,0 +1,21 @@
+======================================================
+COE67-222 Operating Systems - Lab 07 Report
+
+Name: Sutee Onkaew
+Student ID: 67114264
+
+======================================================
+
+1. The Convoy Effect (Phase 2):
+
+The Convoy Effect happens when a long process at the front of the FCFS queue makes shorter processes wait for a long time. In this experiment, P1 had a CPU burst time of 10 units, so it used the CPU first and ran until it finished. Because of this, P2 had to wait 10 units and P3 had to wait 12 units even though they only needed 2 and 3 CPU units. The FCFS average waiting time was 7.33. With Round Robin, P2 and P3 received CPU time earlier, so the average waiting time decreased to 4.33.
+
+2. Choosing the Time Quantum:
+
+If the Time Quantum is extremely large, such as 100, each process will probably finish during its first turn. In this case, Round Robin will behave similar to FCFS because each process can keep the CPU until it finishes.
+
+If the Time Quantum is extremely small, such as 0.0001, the Operating System will switch between processes very frequently. This causes a large amount of Context Switching overhead. The system spends too much time switching processes instead of doing useful work, so the overall performance can become worse.
+
+3. AI Context:
+
+Round Robin scheduling helps prevent long AI requests from blocking short requests. In the AI inference experiment, User_A_Essay required 10 tokens while User_B_Math required only 2 tokens. With FCFS, User_B had to wait until User_A completely finished. With Round Robin, the server generated tokens for each request in turns, so User_B finished after receiving only 2 tokens while User_A was still being processed. This improves the response time for short interactive requests and helps reduce perceived latency and Time To First Token (TTFT).
